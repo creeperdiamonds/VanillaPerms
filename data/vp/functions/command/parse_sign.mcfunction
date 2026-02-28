@@ -15,15 +15,15 @@ data modify storage vp:temp command.line4 set from block ^ ^ ^2 front_text.messa
 # This is a simplified approach. A real implementation would need to merge lines
 # and split by spaces. For now, we'll just check the first line.
 
-# We need to find the original player.
-# This is tricky. The scheduled function loses the context of @s.
-# I stored the UUID on the marker. Let's try to find the player with that UUID.
-# This is a very advanced and potentially slow operation.
-# A better way is to run the next function AS the player found by the UUID.
-# But `execute as <UUID>` is not a thing.
-#
-# Let's reconsider. The `vp.commander` tag is still on the player.
-# The scheduled function runs at the server level, so we can target the player.
+# Simple argument parsing strategy:
+# - Treat `line1` as the command verb (e.g. create, edit, join, leave, reload)
+# - Treat `line2` as the primary argument (e.g. group name or other param)
+# This covers the common use-cases and keeps parsing simple and deterministic.
+
+# Copy line2 into a canonical temp arg for the downstream command handlers.
+data modify storage vp:temp arg set from storage vp:temp command.line2
+
+# Run the dispatcher as the player who placed the sign (tagged earlier).
 execute as @a[tag=vp.commander] run function vp:command/dispatch_from_storage
 
 # Clean up after parsing
