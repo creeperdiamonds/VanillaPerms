@@ -1,2 +1,169 @@
 # VanillaPerms
-VanillaPerms is a LuckPerms-inspired permission system datapack for vanilla Minecraft servers. It provides group-based access control with customizable permissions, flags, and rank displays—no plugins required. Features include hierarchical groups, bulk operations, operator levels, and real-time permission recalculation.
+
+A vanilla-native permissions system datapack for Minecraft, inspired by LuckPerms. VanillaPerms brings advanced permission management to vanilla Minecraft servers without requiring any external plugins or mods.
+
+## Features
+
+- **Group-based permissions** - Organize players into groups with custom permissions and flags
+- **LuckPerms-inspired** - Familiar permission structure for users of popular permission plugins
+- **Vanilla native** - Works on vanilla Minecraft servers with no plugin dependencies
+- **Flexible inheritance** - Set up group hierarchies with permission inheritance
+- **Dynamic permissions** - Add, remove, and modify permissions in real-time
+- **Rank display** - Show player ranks in chat and tab list
+- **Selector enforcement** - Control which selectors players can use
+- **Operator override** - Customize operator permission levels
+- **Bulk operations** - Apply permissions and flags to multiple players at once
+
+## Installation
+
+### Requirements
+- Minecraft Java Edition 1.20+ (Pack format 18)
+- Vanilla server or compatible server software (Spigot, Paper, Fabric, etc.)
+- World save enabled (required for datapack functionality)
+
+### Installation Steps
+
+#### Step 1: Download the datapack
+Clone or download this repository to get the VanillaPerms datapack folder.
+
+#### Step 2: Locate your server's datapacks folder
+Navigate to your server directory:
+```
+your-server/world/datapacks/
+```
+
+If the `datapacks` folder doesn't exist, create it.
+
+#### Step 3: Install the datapack
+Copy the `VanillaPerms` folder into the `datapacks` directory:
+```
+your-server/world/datapacks/VanillaPerms/
+```
+
+Your file structure should look like:
+```
+your-server/
+├── world/
+│   └── datapacks/
+│       └── VanillaPerms/
+│           ├── pack.mcmeta
+│           ├── data/
+│           └── ...
+├── server.properties
+└── ...
+```
+
+#### Step 4: Reload the datapack
+Start or restart your server. The datapack will automatically load and initialize.
+
+In-game, you can verify installation by running:
+```
+/function vp:setup
+```
+
+#### Step 5: Configure VanillaPerms
+After setup, configure the system using:
+```
+/trigger vp
+```
+
+Or use the command aliases:
+```
+/trigger permissions
+/trigger perms
+/trigger rank
+```
+
+## Usage
+
+### Basic Commands
+
+**Join a group:**
+```
+/function vp:join_group {player: "PlayerName", group: "GroupName"}
+```
+
+**Create a new group:**
+```
+/function vp:create_group {group: "GroupName"}
+```
+
+**Add permission to a group:**
+```
+/function vp:edit_group {group: "GroupName", action: "permission_add", permission: "some.permission"}
+```
+
+**Remove player from group:**
+```
+/function vp:leave_group {player: "PlayerName"}
+```
+
+**Reload configuration:**
+```
+/function vp:reload_config
+```
+
+## Configuration
+
+Configuration is stored in:
+```
+data/vp/storage/config.json
+```
+
+### Key Settings
+
+- **DefaultFlags** - Default permissions for all groups
+- **MaintenanceMode** - Disable VanillaPerms temporarily
+- **DebugMode** - Enable debug output for troubleshooting
+- **SafeMode** - Prevent accidental data loss
+
+## File Structure
+
+```
+VanillaPerms/
+├── pack.mcmeta           # Datapack metadata
+├── README.md             # This file
+├── LICENSE               # MIT License
+└── data/
+    ├── minecraft/
+    │   └── tags/functions/
+    │       └── tick.json # Tick function registration
+    └── vp/
+        ├── functions/    # All game functions
+        ├── storage/      # JSON data storage (config, groups, players)
+        └── command/      # Command parsing functions
+```
+
+## Troubleshooting
+
+### Datapack not loading
+- Check that you placed it in `world/datapacks/` (not a subfolder)
+- Verify the folder name is exactly `VanillaPerms`
+- Ensure `pack.mcmeta` is in the root directory
+- Run `/reload` command or restart the server
+
+### Functions not working
+- Verify the datapack is loaded: `/datapack list enabled`
+- Enable command blocks in `server.properties`: `enable-command-block=true`
+- Check that you're using Minecraft 1.20+
+
+### Permissions not applying
+- Run `/function vp:reload_config` to refresh the system
+- Check `data/vp/storage/` JSON files for corruption
+- Enable DebugMode in config for detailed output
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Contributions, bug reports, and feature requests are welcome! Feel free to open issues or submit pull requests.
+
+## Support
+
+For issues, questions, or suggestions, please open an issue on this repository.
+
+---
+
+**VanillaPerms** - Making vanilla permissions advanced since 2026
