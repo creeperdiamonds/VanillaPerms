@@ -1,0 +1,62 @@
+{
+  "groups": [
+    {
+      "name": "default",
+      "permissions": [],
+      "flags": {},
+      "rank": {
+        "Chat": null,
+        "Tab": null,
+        "Player": null
+      }
+    },
+    {
+      "name": "operator.lvl1",
+      "permissions": [],
+      "flags": {},
+      "rank": {
+        "Chat": null,
+        "Tab": null,
+        "Player": null
+      }
+    },
+    {
+      "name": "operator.lvl2",
+      "permissions": [],
+      "flags": {},
+      "rank": {
+        "Chat": null,
+        "Tab": null,
+        "Player": null
+      }
+    },
+    {
+      "name": "operator.lvl3",
+      "permissions": ["*"],
+      "flags": {
+        "AllowExecuteForOthers": true,
+        "ChatRank": true,
+        "TabRank": true
+      },
+      "rank": {
+        "Chat": null,
+        "Tab": null,
+        "Player": null
+      }
+    },
+    {
+      "name": "operator",
+      "permissions": ["*"],
+      "flags": {
+        "AllowExecuteForOthers": true,
+        "ChatRank": true,
+        "TabRank": true
+      },
+      "rank": {
+        "Chat": null,
+        "Tab": null,
+        "Player": null
+      }
+    }
+  ]
+}
