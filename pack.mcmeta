@@ -1,8 +1,13 @@
   {
     "pack": {
-      "description": "VanillaPerms v1 – A vanilla-native permissions datapack inspired by LuckPerms. Manage groups, permissions, and ranks without plugins.",
       "pack_format": 94,
-      "min_format": 94.1,
-      "max_format": 94.1
+      "description": "VanillaPerms v1 – A vanilla-native permissions datapack inspired by LuckPerms. Manage groups, permissions, and ranks without plugins.",
+      "supported_formats": {
+        "min_inclusive": 18,
+        "max_inclusive": 94
+      }
+    }
+  }
+        }
     }
   }
