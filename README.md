@@ -76,32 +76,124 @@ Or use the command aliases:
 
 ## Usage
 
-### Basic Commands
+### Quick Start with /trigger vp
 
-**Join a group:**
+The easiest way to manage VanillaPerms is through the `/trigger vp` command. Simply type the command and follow the sign prompts:
+
 ```
-/function vp:join_group {player: "PlayerName", group: "GroupName"}
+/trigger vp
 ```
+
+Available command aliases:
+```
+/trigger permissions
+/trigger perms
+/trigger rank
+```
+
+### Trigger Command Examples
+
+**1. Create a new group "admin":**
+```
+/trigger vp set 1
+# Then follow the sign: type "admin"
+```
+
+**2. Join the "admin" group (as a player):**
+```
+/trigger vp set 2
+# Then type your username
+```
+
+**3. Add a permission to a group:**
+```
+/trigger vp set 3
+# Follow prompts to select group and add permission
+```
+
+**4. Edit group flags (like ChatRank, DebugMode):**
+```
+/trigger vp set 4
+# Follow the menu to toggle flags for a group
+```
+
+**5. Reload configuration (refresh the system):**
+```
+/trigger vp set 5
+# Full system reset and configuration reload
+```
+
+### Function Example Templates
 
 **Create a new group:**
 ```
-/function vp:create_group {group: "GroupName"}
+/function vp:create_group {group: "moderator"}
+# Expected: [SUCCESS] Group 'moderator' created
+```
+
+**Join a player to a group:**
+```
+/function vp:join_group {player: "Steve", group: "admin"}
+# Expected: [SUCCESS] Player 'Steve' added to group 'admin'
 ```
 
 **Add permission to a group:**
 ```
-/function vp:edit_group {group: "GroupName", action: "permission_add", permission: "some.permission"}
+/function vp:edit_group {group: "admin", action: "permission_add", permission: "command.ban"}
+# Expected: [SUCCESS] Group permissions updated successfully
 ```
 
-**Remove player from group:**
+**Add multiple permissions at once:**
 ```
-/function vp:leave_group {player: "PlayerName"}
+/function vp:edit_group {group: "moderator", action: "permission_add", permission: "command.ban,command.kick,command.mute"}
+# Expected: [SUCCESS] Group permissions updated successfully
 ```
 
-**Reload configuration:**
+**Remove permission from a group:**
+```
+/function vp:edit_group {group: "admin", action: "permission_remove", permission: "command.ban"}
+# Expected: [SUCCESS] Group permissions updated successfully
+```
+
+**Set group flags (enable features):**
+```
+/function vp:edit_group {group: "admin", action: "flag_set", permission: "ChatRank"}
+# Sets the ChatRank flag for the admin group
+```
+
+**Remove player from any group:**
+```
+/function vp:leave_group {player: "Steve"}
+# Expected: [SUCCESS] Player removed from group
+```
+
+**Reload entire configuration:**
 ```
 /function vp:reload_config
+# Expected: [SUCCESS] Configuration reloaded
 ```
+
+### Built-in Groups
+
+VanillaPerms comes with 5 pre-configured groups:
+
+1. **default** - Used for all players without a custom group
+2. **operator.lvl1** - Operator level 1 (restrictions)
+3. **operator.lvl2** - Operator level 2 (moderate restrictions)
+4. **operator.lvl3** - Operator level 3 (server admin) - Full permissions by default
+5. **operator** - Full server operator - Unrestricted
+
+### Permission Examples
+
+Common permissions you might use:
+
+- `command.ban` - Allow ban command
+- `command.kick` - Allow kick command
+- `command.mute` - Allow chat mute
+- `command.tp` - Allow teleport commands
+- `command.gamemode` - Allow gamemode changes
+- `admin.*` - Allow all admin commands (wildcard)
+- `*` - Allow EVERYTHING (full access)
 
 ## Configuration
 
