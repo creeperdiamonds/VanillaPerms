@@ -6,5 +6,5 @@
 # copy anything, just call it
 function vp:find_group
 
-execute if score @s vp_found matches 0 run tellraw @s ["",{"text":"[VP] ","color":"red"},{"text":"Group not found: "},{"storage":"vp:temp","nbt":"arg","color":"yellow"}]
+execute if score @s vp_found matches 0 run tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"Group not found: "},{"storage":"vp:temp","nbt":"arg","color":"yellow"}]
 execute if score @s vp_found matches 1 run function vp:edit_group_apply

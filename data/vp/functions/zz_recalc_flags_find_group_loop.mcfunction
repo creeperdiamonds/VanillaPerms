@@ -18,11 +18,6 @@ execute store success score @s vp_match run data modify storage vp:temp cmp set 
 execute if score @s vp_match matches 0 run function vp:zz_recalc_flags_group_found
 
 # If no match was found (the value was changed, so success=1), continue the loop.
-execute if score @s vp_match matches 1 run block
-    # Increment loop counter.
-    scoreboard players add @s vp_loop 1
-    # Remove the group we just checked from the temporary list.
-    data remove storage vp:temp find_group_temp[0]
-    # Call this function again to check the next group.
-    function vp:zz_recalc_flags_find_group_loop
-end
+execute if score @s vp_match matches 1 run scoreboard players add @s vp_loop 1
+execute if score @s vp_match matches 1 run data remove storage vp:temp find_group_temp[0]
+execute if score @s vp_match matches 1 run function vp:zz_recalc_flags_find_group_loop

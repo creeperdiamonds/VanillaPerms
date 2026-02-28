@@ -11,13 +11,10 @@ data modify storage vp:temp cmp set from storage vp:temp find_groups_temp[0].nam
 execute store success score @s vp_match run data modify storage vp:temp cmp set from storage vp:temp arg
 
 # Check if the score is 0 (match found).
-execute if score @s vp_match matches 0 run block
-    # Match found! Set result scores and end the loop.
-    scoreboard players set @s vp_found 1
-    scoreboard players operation @s vp_found_index = @s vp_loop
-    function vp:find_group_end
-    return 0
-end
+execute if score @s vp_match matches 0 run scoreboard players set @s vp_found 1
+execute if score @s vp_match matches 0 run scoreboard players operation @s vp_found_index = @s vp_loop
+execute if score @s vp_match matches 0 run function vp:find_group_end
+execute if score @s vp_match matches 0 run return 0
 
 # If no match was found:
 # Increment loop counter for the index.

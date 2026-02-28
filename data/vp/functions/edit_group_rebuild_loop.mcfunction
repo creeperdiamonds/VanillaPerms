@@ -13,25 +13,9 @@ execute if score @s vp_rebuild_loop = @s vp_found_index run block
     # --- ACTION DISPATCHER ---
     # Perform the modification based on the 'action' value.
     execute if data storage vp:temp {action:"permission_add"} run data modify storage vp:temp target_group.permissions append from storage vp:temp action_values
-    execute if data storage vp:temp {action:"flag_set"} run data modify storage vp:temp target_group.flags merge from string storage vp:temp action_values
-    execute if data storage vp:temp {action:"permission_remove"} run block
-        # To remove a permission, we must rebuild the permissions list.
-        # 1. Set up the inputs for the permissions loop helper.
-        data modify storage vp:temp original_perms set from storage vp:temp target_group.permissions
-        data modify storage vp:temp new_perms set value []
-        data modify storage vp:temp perm_to_remove set from storage vp:temp action_values
-
-        # 2. Call the helper to do the inner loop.
-        function vp:zz_rebuild_permissions_list_loop
-
-        # 3. Replace the old permissions list with the newly created one.
-        data modify storage vp:temp target_group.permissions set from storage vp:temp new_perms
-
-        # 4. Clean up temp storage used by the helper.
-        data remove storage vp:temp original_perms
-        data remove storage vp:temp new_perms
-        data remove storage vp:temp perm_to_remove
-    end
+    execute if data storage vp:temp {action:"flag_set"} run data modify storage vp:temp target_group.flags merge from storage vp:temp action_values
+    execute if data storage vp:temp {action:"permission_remove"} run function vp:edit_group_rebuild_permission_remove
+    
 
     # Append the MODIFIED group to the new list.
     data modify storage vp:temp new_groups append from storage vp:temp target_group

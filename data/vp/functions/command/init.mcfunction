@@ -9,7 +9,7 @@ tag @s add vp.commander
 scoreboard players set @s vp 0
 
 # Tell the player how to enter the command
-tellraw @s ["",{"text":"[VP] ","color":"gold"},{"text":"Please type your command on the sign that will appear in front of you.","color":"aqua"}]
+tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"Please type your command on the sign that will appear in front of you.","color":"aqua"}]
 
 # Run the setup for the sign input
 function vp:command/setup_sign

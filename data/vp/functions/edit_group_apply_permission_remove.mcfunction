@@ -18,7 +18,7 @@ function vp:edit_group_rebuild_loop
 data modify storage vp:groups groups set from storage vp:temp new_groups
 
 # Tell the user the update was successful.
-tellraw @s ["",{"text":"[VP] ","color":"green"},{"text":"Group permissions updated successfully."}]
+tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"Group permissions updated successfully."}]
 
 # Clean up temporary lists used in the process.
 data remove storage vp:temp temp_groups

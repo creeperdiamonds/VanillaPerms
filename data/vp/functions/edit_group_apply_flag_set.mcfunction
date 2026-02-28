@@ -22,7 +22,7 @@ data modify storage vp:groups groups set from storage vp:temp new_groups
 function vp:zz_recalc_flags_for_group_members
 
 # Tell the user the update was successful.
-tellraw @s ["",{"text":"[VP] ","color":"green"},{"text":"Group flags updated successfully."}]
+tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"Group flags updated successfully."}]
 
 # Clean up temporary lists used in the process.
 data remove storage vp:temp temp_groups

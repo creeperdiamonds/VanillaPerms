@@ -8,11 +8,11 @@
 #   - action_values (string): The values for the action.
 
 # Check for required arguments
-execute unless data storage vp:temp arg run tellraw @s [{"text":"[VP] Error: No group name provided in 'arg'.","color":"red"}]
+execute unless data storage vp:temp arg run tellraw @s [{"text":"[ERROR] Error: No group name provided in 'arg'.","color":"red"}]
 execute unless data storage vp:temp arg run return 0
-execute unless data storage vp:temp action run tellraw @s [{"text":"[VP] Error: No action provided in 'action'.","color":"red"}]
+execute unless data storage vp:temp action run tellraw @s [{"text":"[ERROR] Error: No action provided in 'action'.","color":"red"}]
 execute unless data storage vp:temp action run return 0
-execute unless data storage vp:temp action_values run tellraw @s [{"text":"[VP] Error: No values provided in 'action_values'.","color":"red"}]
+execute unless data storage vp:temp action_values run tellraw @s [{"text":"[ERROR] Error: No values provided in 'action_values'.","color":"red"}]
 execute unless data storage vp:temp action_values run return 0
 
 # Find the group. The function vp:find_group will:
@@ -24,7 +24,7 @@ function vp:find_group
 execute if score @s vp_found matches 1 run function vp:edit_group_apply
 
 # If group was not found, send an error message.
-execute if score @s vp_found matches 0 run tellraw @s ["",{"text":"[VP] ","color":"red"},{"text":"Group not found: '"},{"storage":"vp:temp","nbt":"arg","color":"yellow"},{"text":"'"}]
+execute if score @s vp_found matches 0 run tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"Group not found: '"},{"storage":"vp:temp","nbt":"arg","color":"yellow"},{"text":"'"}]
 
 # Clean up temp storage that is safe to remove now
 data remove storage vp:temp arg

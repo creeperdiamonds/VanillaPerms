@@ -15,11 +15,11 @@
 
 # retrieve group name and optional target uuid
 # store it into a dedicated variable used by the helpers below
-execute store result storage vp:temp group_arg string 1 run data get storage vp:temp arg
+data modify storage vp:temp group_arg set from storage vp:temp arg
 
 # if the group name is empty, abort
-execute if data storage vp:temp group_arg value matches "" run tellraw @s ["",{"text":"[VP] ","color":"red"},{"text":"No group name provided."}]
-execute unless data storage vp:temp group_arg value matches "" run function vp:join_group_find
+execute if data storage vp:temp {arg:""} run tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"No group name provided."}]
+execute unless data storage vp:temp {arg:""} run function vp:join_group_find
 
 # clear the temp argument so it doesn't linger
 data modify storage vp:temp arg set value ""

@@ -4,31 +4,40 @@
 # player/group arrays and reapplies defaults from config.json.
 
 # --- ensure scoreboard objectives exist ---
-scoreboard objectives add vp dummy 2>nul
-scoreboard objectives add permissions dummy 2>nul
-scoreboard objectives add perms dummy 2>nul
-scoreboard objectives add permsA dummy 2>nul
-scoreboard objectives add rank dummy 2>nul
-scoreboard objectives add vp_cmd dummy 2>nul
-scoreboard objectives add vp_arg1 dummy 2>nul
-scoreboard objectives add vp_arg2 dummy 2>nul
-scoreboard objectives add vp_loop dummy 2>nul
-scoreboard objectives add vp_len dummy 2>nul
-scoreboard objectives add vp_op dummy 2>nul
-scoreboard objectives add vp_flag_AllowFlight dummy 2>nul
-scoreboard objectives add vp_flag_InstantBreak dummy 2>nul
-scoreboard objectives add vp_flag_IsInvulnerable dummy 2>nul
-scoreboard objectives add vp_flag_NoHunger dummy 2>nul
-scoreboard objectives add vp_flag_KeepInventory dummy 2>nul
-scoreboard objectives add vp_flag_NoFallDamage dummy 2>nul
-scoreboard objectives add vp_flag_AllowExecuteForOthers dummy 2>nul
-scoreboard objectives add vp_flag_ChatRank dummy 2>nul
-scoreboard objectives add vp_flag_TabRank dummy 2>nul
-scoreboard objectives add vp_flag_HideChat dummy 2>nul
-scoreboard objectives add vp_flag_HideTab dummy 2>nul
-scoreboard objectives add vp_flag_HidePlayer dummy 2>nul
-scoreboard objectives add vp_flag_LogCommandUse dummy 2>nul
-scoreboard objectives add vp_flag_MaxCommandTargets dummy 2>nul
+scoreboard objectives add vp dummy
+scoreboard objectives add permissions dummy
+scoreboard objectives add perms dummy
+scoreboard objectives add permsA dummy
+scoreboard objectives add rank dummy
+scoreboard objectives add vp_cmd dummy
+scoreboard objectives add vp_arg1 dummy
+scoreboard objectives add vp_arg2 dummy
+scoreboard objectives add vp_loop dummy
+scoreboard objectives add vp_len dummy
+scoreboard objectives add vp_op dummy
+scoreboard objectives add vp_flag_AllowFlight dummy
+scoreboard objectives add vp_flag_InstantBreak dummy
+scoreboard objectives add vp_flag_IsInvulnerable dummy
+scoreboard objectives add vp_flag_NoHunger dummy
+scoreboard objectives add vp_flag_KeepInventory dummy
+scoreboard objectives add vp_flag_NoFallDamage dummy
+scoreboard objectives add vp_flag_AllowExecuteForOthers dummy
+scoreboard objectives add vp_flag_ChatRank dummy
+scoreboard objectives add vp_flag_TabRank dummy
+scoreboard objectives add vp_flag_HideChat dummy
+scoreboard objectives add vp_flag_HideTab dummy
+scoreboard objectives add vp_flag_HidePlayer dummy
+scoreboard objectives add vp_flag_LogCommandUse dummy
+scoreboard objectives add vp_flag_MaxCommandTargets dummy
+scoreboard objectives add vp_match dummy
+scoreboard objectives add vp_tmp dummy
+scoreboard objectives add vp_found dummy
+scoreboard objectives add vp_found_index dummy
+scoreboard objectives add vp_callback dummy
+scoreboard objectives add vp_rebuild_loop dummy
+scoreboard objectives add vp.flag_result dummy
+scoreboard objectives add vp.player_id dummy
+scoreboard objectives add vp.is_op dummy
 
 # clear groups and players; start fresh arrays
 data remove storage vp:groups groups
@@ -51,5 +60,5 @@ function vp:op_check
 execute as @a run function vp:player_recalculate_flags
 
 # feedback to executor
-tellraw @s ["",{"text":"[VP] ","color":"green"},{"text":"Configuration reloaded."}]
+tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"Configuration reloaded."}]
 

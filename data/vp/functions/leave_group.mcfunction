@@ -10,6 +10,6 @@ execute store result storage vp:temp current_uuid[3] int 1.0 run data get entity
 # search for their entry
 function vp:find_player
 
-execute if score @s vp_found_index matches -1 run tellraw @s ["",{"text":"[VP] ","color":"yellow"},{"text":"You are not in any group."}]
+execute if score @s vp_found_index matches -1 run tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"You are not in any group."}]
 execute unless score @s vp_found_index matches -1 run function vp:leave_group_do
 

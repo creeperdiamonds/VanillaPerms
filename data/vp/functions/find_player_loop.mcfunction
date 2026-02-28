@@ -23,21 +23,13 @@ execute store success score @s vp_tmp run data modify storage vp:temp cmp_uuid[3
 execute if score @s vp_tmp matches 0 run scoreboard players add @s vp_match 1
 
 # If vp_match is 4, all four UUID components matched.
-execute if score @s vp_match matches 4 run block
-    # Match found! Set result scores and stop the loop.
-    scoreboard players set @s vp_found 1
-    scoreboard players operation @s vp_found_index = @s vp_loop
-    data remove storage vp:temp find_player_temp
-    data remove storage vp:temp cmp_uuid
-    return 0
-end
+execute if score @s vp_match matches 4 run scoreboard players set @s vp_found 1
+execute if score @s vp_match matches 4 run scoreboard players operation @s vp_found_index = @s vp_loop
+execute if score @s vp_match matches 4 run data remove storage vp:temp find_player_temp
+execute if score @s vp_match matches 4 run data remove storage vp:temp cmp_uuid
+execute if score @s vp_match matches 4 run return 0
 
 # If no match was found, continue the loop.
-execute if score @s vp_match matches ..3 run block
-    # Increment loop counter.
-    scoreboard players add @s vp_loop 1
-    # Remove the player we just checked from the temporary list.
-    data remove storage vp:temp find_player_temp[0]
-    # Call this function again to check the next player.
-    function vp:find_player_loop
-end
+execute if score @s vp_match matches ..3 run scoreboard players add @s vp_loop 1
+execute if score @s vp_match matches ..3 run data remove storage vp:temp find_player_temp[0]
+execute if score @s vp_match matches ..3 run function vp:find_player_loop

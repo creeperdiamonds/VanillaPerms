@@ -3,8 +3,8 @@
 
 # --- Ability Flags ---
 # AllowFlight
-execute as @a if score @s vp_flag_AllowFlight matches 1 run ability @s mayfly true
-execute as @a if score @s vp_flag_AllowFlight matches 0 run ability @s mayfly false
+execute as @a if score @s vp_flag_AllowFlight matches 1 run effect give @s minecraft:levitation 1 0 true
+execute as @a if score @s vp_flag_AllowFlight matches 0 run effect clear @s minecraft:levitation
 
 # --- Effect Flags ---
 # InstantBreak

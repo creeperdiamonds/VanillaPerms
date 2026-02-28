@@ -21,9 +21,9 @@ execute if score @s vp.flag_result matches 1 run data modify storage vp:temp eff
 execute if data storage vp:temp found_player_data run data modify storage vp:temp effective_flags merge from storage vp:temp found_player_data.flags
 
 # 5. Get the final value of the queried flag.
-data modify storage vp:temp final_flag_value set value {}
-data modify storage vp:temp final_flag_value.query set from storage vp:temp flag_query
-data modify storage vp:temp final_flag_value.value set from storage vp:temp effective_flags[$(final_flag_value.query)]
+data modify storage vp:temp final_flag_value set from storage vp:temp effective_flags
+execute if data storage vp:temp effective_flags[{query:true}] run scoreboard players set @s vp.flag_result 1
+execute unless data storage vp:temp effective_flags[{query:true}] run scoreboard players set @s vp.flag_result 0
 
 # 6. Convert boolean to score.
 scoreboard players set @s vp.flag_result 0

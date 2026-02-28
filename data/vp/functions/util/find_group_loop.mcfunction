@@ -7,16 +7,13 @@ execute unless data storage vp:temp groups_copy[0] run return 0
 # Get current group from the array's first element
 data modify storage vp:temp current_group set from storage vp:temp groups_copy[0]
 
-# Compare names
-# data modify storage vp:temp current_group_name set from storage vp:temp current_group.name
-# execute if data storage vp:temp {current_group_name} == storage vp:temp {search_group_name} run function vp:util/group_found
-# The above does not work. We need to compare the two strings.
-# A common way is to put them in the same temporary object and compare.
-data modify storage vp:temp group_comparison set value {name1:"", name2:""}
-data modify storage vp:temp group_comparison.name1 set from storage vp:temp current_group.name
-data modify storage vp:temp group_comparison.name2 set from storage vp:temp search_group_name
+# Compare names using store success
+# If the names match (no change when trying to set), success = 0
+scoreboard players set @s vp_match 1
+execute store success score @s vp_match run data modify storage vp:temp search_group_name set from storage vp:temp current_group.name
 
-execute if data storage vp:temp {group_comparison:{name1:[]}} if data storage vp:temp {group_comparison:{name2:[]}} run function vp:util/group_found
+# If vp_match is 0, names matched
+execute if score @s vp_match matches 0 run function vp:util/group_found
 
 # If not found, remove the first element and loop again
 data remove storage vp:temp groups_copy[0]

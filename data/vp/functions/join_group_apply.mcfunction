@@ -16,7 +16,7 @@ data remove storage vp:temp new_players
 data remove storage vp:temp target_player
 
 # Tell the user the group was changed.
-tellraw @s ["",{"text":"[VP] ","color":"green"},{"text":"Group changed to "},{"storage":"vp:temp","nbt":"group_arg","color":"yellow"}]
+tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"Group changed to "},{"storage":"vp:temp","nbt":"group_arg","color":"yellow"}]
 
 # Recalculate the player's flags now that their group is set.
 function vp:player_recalculate_flags

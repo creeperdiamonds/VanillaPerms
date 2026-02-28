@@ -28,11 +28,6 @@ execute if score @s vp_tmp matches 0 run scoreboard players add @s vp_match 1
 execute if score @s vp_match matches 4 run function vp:zz_find_player_dispatcher
 
 # If no match was found, continue the loop.
-execute if score @s vp_match matches ..3 run block
-    # Increment loop counter.
-    scoreboard players add @s vp_loop 1
-    # Remove the player we just checked from the temporary list.
-    data remove storage vp:temp find_player_temp[0]
-    # Call this function again to check the next player.
-    function vp:zz_recalc_flags_find_player_loop
-end
+execute if score @s vp_match matches ..3 run scoreboard players add @s vp_loop 1
+execute if score @s vp_match matches ..3 run data remove storage vp:temp find_player_temp[0]
+execute if score @s vp_match matches ..3 run function vp:zz_recalc_flags_find_player_loop

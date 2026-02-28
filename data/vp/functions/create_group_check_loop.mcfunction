@@ -12,12 +12,9 @@ data modify storage vp:temp cmp set from storage vp:temp groups[0].name
 execute store success score @s vp_match run data modify storage vp:temp cmp set from storage vp:temp arg
 
 # Check if the score is 0 (match found).
-execute if score @s vp_match matches 0 run block
-    # If they match, send an error, tag the player, and end the loop.
-    tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"Group already exists: '","color":"gray"},{"storage":"vp:temp","nbt":"arg","color":"yellow"},{"text":"'","color":"gray"}]
-    tag @s add vp_group_exists
-    return 0
-end
+execute if score @s vp_match matches 0 run tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"Group already exists: '","color":"gray"},{"storage":"vp:temp","nbt":"arg","color":"yellow"},{"text":"'","color":"gray"}]
+execute if score @s vp_match matches 0 run tag @s add vp_group_exists
+execute if score @s vp_match matches 0 run return 0
 
 # If no match was found:
 # Remove the group we just checked from the temporary list.

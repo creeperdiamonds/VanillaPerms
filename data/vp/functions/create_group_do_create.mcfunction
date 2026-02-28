@@ -8,6 +8,6 @@ data modify storage vp:groups groups append value {name:"", permissions:[], flag
 execute store result storage vp:groups groups[-1].name string 1 run data get storage vp:temp arg
 
 # Tell the player the group was created.
-tellraw @s ["",{"text":"[VP] ","color":"green"},{"text":"Group created: '","color":"gray"},{"storage":"vp:temp","nbt":"arg","color":"yellow"},{"text":"'","color":"gray"}]
+tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"Group created: '","color":"gray"},{"storage":"vp:temp","nbt":"arg","color":"yellow"},{"text":"'","color":"gray"}]
 
 # (This function does not clean up temp storage, the calling function should)

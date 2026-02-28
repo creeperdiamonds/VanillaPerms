@@ -17,7 +17,7 @@ data remove storage vp:temp new_players
 data remove storage vp:temp target_player
 
 # Tell the user they have left their group.
-tellraw @s ["",{"text":"[VP] ","color":"green"},{"text":"You have left your group."}]
+tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"You have left your group."}]
 
 # Recalculate the player's flags. They will now have flags based on the 'default' group.
 function vp:player_recalculate_flags
