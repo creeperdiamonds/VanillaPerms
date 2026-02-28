@@ -5,7 +5,7 @@
 data modify storage vp:groups groups append value {name:"", permissions:[], flags:{}, rank:{Chat:null, Tab:null, Player:null}}
 
 # Copy the group name from the temporary argument into the 'name' field of the new group (which is the last one in the list).
-execute store result storage vp:groups groups[-1].name string 1 run data get storage vp:temp arg
+data modify storage vp:groups groups[-1].name set from storage vp:temp arg
 
 # Tell the player the group was created.
 tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"Group created: '","color":"gray"},{"storage":"vp:temp","nbt":"arg","color":"yellow"},{"text":"'","color":"gray"}]

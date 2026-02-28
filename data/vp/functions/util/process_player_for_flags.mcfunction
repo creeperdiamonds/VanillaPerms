@@ -30,24 +30,24 @@ data modify storage vp:temp workingFlags set from storage vp:groups groups[0].fl
 execute if data storage vp:players players[0].flags run data modify storage vp:temp workingFlags merge from storage vp:players players[0].flags
 # Push Working Flags To Scoreboards
 # AllowExecute
-execute if data storage vp:temp workingFlags.AllowExecute 1b run scoreboard players set @s vp_AllowExecute 1
+execute if data storage vp:temp workingFlags{AllowExecute:true} run scoreboard players set @s vp_AllowExecute 1
 # AllowExecuteForOthers
-execute if data storage vp:temp workingFlags.AllowExecuteForOthers 1b run scoreboard players set @s vp_AllowExecuteForOthers 1
+execute if data storage vp:temp workingFlags{AllowExecuteForOthers:true} run scoreboard players set @s vp_AllowExecuteForOthers 1
 # AllowSelectors
-execute if data storage vp:temp workingFlags.AllowSelectors 1b run scoreboard players set @s vp_AllowSelectors 1
+execute if data storage vp:temp workingFlags{AllowSelectors:true} run scoreboard players set @s vp_AllowSelectors 1
 # AllowFunctionCall
-execute if data storage vp:temp workingFlags.AllowFunctionCall 1b run scoreboard players set @s vp_AllowFunctionCall 1
+execute if data storage vp:temp workingFlags{AllowFunctionCall:true} run scoreboard players set @s vp_AllowFunctionCall 1
 # AllowTriggerUse
-execute if data storage vp:temp workingFlags.AllowTriggerUse 1b run scoreboard players set @s vp_AllowTriggerUse 1
+execute if data storage vp:temp workingFlags{AllowTriggerUse:true} run scoreboard players set @s vp_AllowTriggerUse 1
 # ChatRank
-execute if data storage vp:temp workingFlags.ChatRank 1b run scoreboard players set @s vp_ChatRank 1
+execute if data storage vp:temp workingFlags{ChatRank:true} run scoreboard players set @s vp_ChatRank 1
 # TabRank
-execute if data storage vp:temp workingFlags.TabRank 1b run scoreboard players set @s vp_TabRank 1
+execute if data storage vp:temp workingFlags{TabRank:true} run scoreboard players set @s vp_TabRank 1
 # PlayerRank
-execute if data storage vp:temp workingFlags.PlayerRank 1b run scoreboard players set @s vp_PlayerRank 1
+execute if data storage vp:temp workingFlags{PlayerRank:true} run scoreboard players set @s vp_PlayerRank 1
 # DebugMode
-execute if data storage vp:temp workingFlags.DebugMode 1b run scoreboard players set @s vp_DebugMode 1
+execute if data storage vp:temp workingFlags{DebugMode:true} run scoreboard players set @s vp_DebugMode 1
 # MaintenanceMode
-execute if data storage vp:temp workingFlags.MaintenanceMode 1b run scoreboard players set @s vp_MaintenanceMode 1
+execute if data storage vp:temp workingFlags{MaintenanceMode:true} run scoreboard players set @s vp_MaintenanceMode 1
 # Optional Auto Display Update
 execute if score @s vp_ChatRank matches 1 run function vp:zz_recalc_flags_apply_to_scoreboards

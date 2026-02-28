@@ -10,13 +10,11 @@ function vp:zz_util_get_player_group_name
 # Step 2: Compare the player's group name with the edited group name.
 # The edited group name is in 'storage vp:temp arg'.
 # The player's group name is now in 'storage vp:temp current_player_group'.
-execute if data storage vp:temp current_player_group run block
-    data modify storage vp:temp cmp set from storage vp:temp current_player_group
-    execute store success score @s vp_match run data modify storage vp:temp cmp set from storage vp:temp arg
+execute if data storage vp:temp current_player_group run data modify storage vp:temp cmp set from storage vp:temp current_player_group
+execute if data storage vp:temp current_player_group run execute store success score @s vp_match run data modify storage vp:temp cmp set from storage vp:temp arg
 
-    # If match (success=0), then this player is a member. Recalculate their flags.
-    execute if score @s vp_match matches 0 run function vp:player_recalculate_flags
-end
+# If match (success=0), then this player is a member. Recalculate their flags.
+execute if data storage vp:temp current_player_group run execute if score @s vp_match matches 0 run function vp:player_recalculate_flags
 
 # Clean up the temp storage used by this check.
 data remove storage vp:temp current_player_group

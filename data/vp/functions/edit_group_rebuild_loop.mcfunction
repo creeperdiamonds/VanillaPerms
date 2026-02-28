@@ -5,24 +5,12 @@
 execute unless data storage vp:temp temp_groups[0] run return 0
 
 # Check if the current group is the one we want to modify.
-execute if score @s vp_rebuild_loop = @s vp_found_index run block
-    # This is the target group.
-    # Copy it for modification.
-    data modify storage vp:temp target_group set from storage vp:temp temp_groups[0]
-
-    # --- ACTION DISPATCHER ---
-    # Perform the modification based on the 'action' value.
-    execute if data storage vp:temp {action:"permission_add"} run data modify storage vp:temp target_group.permissions append from storage vp:temp action_values
-    execute if data storage vp:temp {action:"flag_set"} run data modify storage vp:temp target_group.flags merge from storage vp:temp action_values
-    execute if data storage vp:temp {action:"permission_remove"} run function vp:edit_group_rebuild_permission_remove
-    
-
-    # Append the MODIFIED group to the new list.
-    data modify storage vp:temp new_groups append from storage vp:temp target_group
-    
-    # Skip the default append below to avoid duplicating the entry.
-    tag @s add vp_processed_target
-end
+execute if score @s vp_rebuild_loop = @s vp_found_index run data modify storage vp:temp target_group set from storage vp:temp temp_groups[0]
+execute if score @s vp_rebuild_loop = @s vp_found_index run execute if data storage vp:temp {action:"permission_add"} run data modify storage vp:temp target_group.permissions append from storage vp:temp action_values
+execute if score @s vp_rebuild_loop = @s vp_found_index run execute if data storage vp:temp {action:"flag_set"} run data modify storage vp:temp target_group.flags merge from storage vp:temp action_values
+execute if score @s vp_rebuild_loop = @s vp_found_index run execute if data storage vp:temp {action:"permission_remove"} run function vp:edit_group_rebuild_permission_remove
+execute if score @s vp_rebuild_loop = @s vp_found_index run data modify storage vp:temp new_groups append from storage vp:temp target_group
+execute if score @s vp_rebuild_loop = @s vp_found_index run tag @s add vp_processed_target
 
 # If it's not the target group, just append it to the new list unmodified.
 execute unless entity @s[tag=vp_processed_target] run data modify storage vp:temp new_groups append from storage vp:temp temp_groups[0]
