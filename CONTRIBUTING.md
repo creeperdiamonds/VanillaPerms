@@ -76,7 +76,7 @@ Example:
 
 **Step 1: Fork and Clone**
 ```bash
-git clone https://github.com/YOUR_USERNAME/VanillaPerms.git
+git clone https://github.com/creeperdiamonds/VanillaPerms.git
 cd VanillaPerms
 git checkout development
 ```
@@ -318,4 +318,4 @@ By contributing to VanillaPerms, you agree that your contributions will be licen
 
 Thank you for making VanillaPerms better! Every contribution, no matter how small, is appreciated.
 
-🙏 **Happy coding!**
+🙏 ***Happy coding!***

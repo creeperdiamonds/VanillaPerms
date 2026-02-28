@@ -76,238 +76,124 @@ Or use the command aliases:
 
 ## Usage
 
-### Complete Command Reference
+### Quick Start with /trigger vp
 
-All VanillaPerms commands use the `/trigger vp` system with a menu-driven interface. You can also use the aliases `/trigger perms`, `/trigger permissions`, or `/trigger rank`.
+The easiest way to manage VanillaPerms is through the `/trigger vp` command. Simply type the command and follow the sign prompts:
 
-#### 1️⃣ Group Creation
-
-Create a new group:
 ```
-/trigger vp create group MyGroupExample
+/trigger vp
 ```
 
-- Creates a new group named `MyGroupExample`
-- Initializes it with default flags from `config.json`
-- Returns `[SUCCESS]` message on completion
-
-#### 2️⃣ Editing Group Permissions
-
-**Add single permission:**
+Available command aliases:
 ```
-/trigger vp edit MyGroupExample add give
+/trigger permissions
+/trigger perms
+/trigger rank
+```
+
+### Trigger Command Examples
+
+**1. Create a new group "admin":**
+```
+/trigger vp set 1
+# Then follow the sign: type "admin"
+```
+
+**2. Join the "admin" group (as a player):**
+```
+/trigger vp set 2
+# Then type your username
+```
+
+**3. Add a permission to a group:**
+```
+/trigger vp set 3
+# Follow prompts to select group and add permission
+```
+
+**4. Edit group flags (like ChatRank, DebugMode):**
+```
+/trigger vp set 4
+# Follow the menu to toggle flags for a group
+```
+
+**5. Reload configuration (refresh the system):**
+```
+/trigger vp set 5
+# Full system reset and configuration reload
+```
+
+### Function Example Templates
+
+**Create a new group:**
+```
+/function vp:create_group {group: "moderator"}
+# Expected: [SUCCESS] Group 'moderator' created
+```
+
+**Join a player to a group:**
+```
+/function vp:join_group {player: "Steve", group: "admin"}
+# Expected: [SUCCESS] Player 'Steve' added to group 'admin'
+```
+
+**Add permission to a group:**
+```
+/function vp:edit_group {group: "admin", action: "permission_add", permission: "command.ban"}
+# Expected: [SUCCESS] Group permissions updated successfully
 ```
 
 **Add multiple permissions at once:**
 ```
-/trigger vp edit MyGroupExample add give,teleport,fly
+/function vp:edit_group {group: "moderator", action: "permission_add", permission: "command.ban,command.kick,command.mute"}
+# Expected: [SUCCESS] Group permissions updated successfully
 ```
 
-**Remove single permission:**
+**Remove permission from a group:**
 ```
-/trigger vp edit MyGroupExample remove give
-```
-
-**Remove multiple permissions:**
-```
-/trigger vp edit MyGroupExample remove give,fly
+/function vp:edit_group {group: "admin", action: "permission_remove", permission: "command.ban"}
+# Expected: [SUCCESS] Group permissions updated successfully
 ```
 
-**Wildcard permissions:**
+**Set group flags (enable features):**
 ```
-/trigger vp edit MyGroupExample add MyPlugin.*
-```
-
-- Wildcards (`*`) grant all permissions matching the pattern
-- `admin.*` grants all `admin.X` permissions
-- `*` grants full server access
-
-#### 3️⃣ Editing Group Flags
-
-**Set a single flag:**
-```
-/trigger vp edit MyGroupExample flag AllowExecute true
+/function vp:edit_group {group: "admin", action: "flag_set", permission: "ChatRank"}
+# Sets the ChatRank flag for the admin group
 ```
 
-**Set multiple flags at once:**
+**Remove player from any group:**
 ```
-/trigger vp edit MyGroupExample flag ChatRank true,TabRank false
-```
-
-**Remove flag override (use default config flag):**
-```
-/trigger vp edit MyGroupExample flag AllowExecute reset
-```
-
-Popular flags:
-- `AllowExecute` - Can execute commands
-- `ChatRank` - Display rank in chat
-- `TabRank` - Display rank in tab list
-- `DebugMode` - Show debug info
-- `MaintenanceMode` - Temporary lock
-
-#### 4️⃣ Editing Ranks / Display Names
-
-**Set chat rank:**
-```
-/trigger vp edit MyGroupExample rank MyChatRank --CHAT
-```
-
-**Set tab rank:**
-```
-/trigger vp edit MyGroupExample rank MyTabRank --TAB
-```
-
-**Set both with different names:**
-```
-/trigger vp edit MyGroupExample rank ChatRankName --CHAT
-/trigger vp edit MyGroupExample rank TabRankName --TAB
-```
-
-**Wipe all display names:**
-```
-/trigger vp edit MyGroupExample rank ---wipe
-```
-
-#### 5️⃣ Assigning / Removing Players from Group
-
-**Join a player to a group:**
-```
-/trigger vp join MyGroupExample playerName
-```
-
-**Remove a player from their group:**
-```
-/trigger vp leave MyGroupExample playerName
-```
-
-#### 6️⃣ Reload / Setup / Safety Commands
-
-**Reload VP configuration:**
-```
-/trigger vp reload
-```
-
-- Clears all scoreboards
-- Reloads groups and players from storage
-- Reapplies all permissions
-- Useful after manual edits to storage files
-
-**Setup VP (first load or fresh world):**
-```
-/function vp:setup
-```
-
-- Initializes the system
-- Creates all required scoreboards
-- Loads default configuration
-- Run this after first installation
-
-**Check operator level / safety:**
-```
-/trigger vp op_check
-```
-
-- Validates operator permissions
-- Only OPs with level ≥ 3 can execute sensitive commands (if `RequireOperatorLevel` is enabled)
-- Syncs operator status with Minecraft op list
-
-#### 7️⃣ Using SubBase Aliases
-
-If you configured `"SubBase": ["permissions", "perms", "rank", "permsA"]` in `config.json`, you can use these aliases:
-
-```
-/trigger perms create group MyGroupExample
-/trigger permissions edit MyGroupExample add jump
-/trigger rank join MyGroupExample playerName
-/trigger permsA leave MyGroupExample playerName
-```
-
-All commands work identically with any alias.
-
-#### 8️⃣ Debug / Inspection Commands
-
-**Enable debug info for a group:**
-```
-/trigger vp edit MyGroupExample flag DisplayDebugInfo true
-```
-
-Shows internal recalculations and flag processing - useful for troubleshooting permission issues.
-
-**Enable rank hover information:**
-```
-/trigger vp edit MyGroupExample flag RankHoverInfo true
-```
-
-Hover over player names in chat to see their group and rank information.
-
-### Real-World Usage Examples
-
-#### Example 1: Set Up a Moderator Group
-
-```
-# 1. Create the group
-/trigger vp create group moderator
-
-# 2. Add moderation permissions
-/trigger vp edit moderator add command.ban,command.kick,command.mute
-
-# 3. Set chat rank
-/trigger vp edit moderator rank Moderator --CHAT
-
-# 4. Assign a player
-/trigger vp join moderator Steve
-
-# 5. Verify
-/trigger vp reload
-```
-
-#### Example 2: Create an Admin with Full Access
-
-```
-# Create admin group
-/trigger vp create group admin
-
-# Grant all permissions
-/trigger vp edit admin add *
-
-# Set display
-/trigger vp edit admin rank [Admin] --CHAT
-
-# Assign yourself
-/trigger vp join admin [YourName]
-```
-
-#### Example 3: Restrict a Specific Group
-
-```
-# Create basic group
-/trigger vp create group builder
-
-# Add only building permissions
-/trigger vp edit builder add command.worldedit,command.build
-
-# Disable execute (prevent running arbitrary commands)
-/trigger vp edit builder flag AllowExecute false
-
-# Assign builders
-/trigger vp join builder BuilderPlayer1
-/trigger vp join builder BuilderPlayer2
-```
-
-### Alternative: Function-Based Commands
-
-Most operations also work as direct function calls (advanced):
-
-```
-/function vp:create_group {group: "moderator"}
-/function vp:join_group {player: "Steve", group: "moderator"}
-/function vp:edit_group {group: "moderator", action: "permission_add", permission: "command.ban"}
 /function vp:leave_group {player: "Steve"}
-/function vp:reload_config
+# Expected: [SUCCESS] Player removed from group
 ```
 
----
+**Reload entire configuration:**
+```
+/function vp:reload_config
+# Expected: [SUCCESS] Configuration reloaded
+```
+
+### Built-in Groups
+
+VanillaPerms comes with 5 pre-configured groups:
+
+1. **default** - Used for all players without a custom group
+2. **operator.lvl1** - Operator level 1 (restrictions)
+3. **operator.lvl2** - Operator level 2 (moderate restrictions)
+4. **operator.lvl3** - Operator level 3 (server admin) - Full permissions by default
+5. **operator** - Full server operator - Unrestricted
+
+### Permission Examples
+
+Common permissions you might use:
+
+- `command.ban` - Allow ban command
+- `command.kick` - Allow kick command
+- `command.mute` - Allow chat mute
+- `command.tp` - Allow teleport commands
+- `command.gamemode` - Allow gamemode changes
+- `admin.*` - Allow all admin commands (wildcard)
+- `*` - Allow EVERYTHING (full access)
 
 ## Configuration
 
