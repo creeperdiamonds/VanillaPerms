@@ -4,11 +4,14 @@
 # Stores result in `storage vp:temp found_group_data`.
 # Sets `vp.flag_result` score for @s to 1 on success, 0 on failure.
 
-# Create a temporary copy of the groups array
-data modify storage vp:temp groups_copy set from storage vp:groups groups
+# --- Setup for generic find ---
+data modify storage vp:temp _find.source_list set from storage vp:groups groups
+data modify storage vp:temp _find.search_path set value "name"
+data modify storage vp:temp _find.search_value set from storage vp:temp search_group_name
 
-# Initialize success flag
-scoreboard players set @s vp.flag_result 0
+# --- Execute generic find ---
+function vp:util/find_in_list
 
-# Start the loop
-function vp:util/find_group_loop
+# --- Process Results ---
+# The generic find function sets vp_found. We will use that as our result flag.
+scoreboard players operation @s vp.flag_result = @s vp_found

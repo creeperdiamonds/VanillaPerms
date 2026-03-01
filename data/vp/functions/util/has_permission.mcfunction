@@ -6,25 +6,22 @@
 # - `scoreboard @s vp_has_permission` = 1 if permission is granted, 0 otherwise.
 
 # --- 1. Initialization ---
-scoreboard players set @s vp_has_permission 0
+scoreboard players set @s vp_perm_denied 0
+scoreboard players set @s vp_perm_granted 0
 
 # --- 2. Gather all permissions ---
 # This populates `storage vp:temp effective_permissions`.
 function vp:util/get_effective_permissions
 
-# --- 3. Two-Pass Permission Check ---
-# First, check for an explicit deny. If one is found, we can stop immediately.
-data modify storage vp:temp _check.deny_found set value 0b
-function vp:util/zz_has_permission_check_deny_loop
-execute if score @s vp_has_permission matches 1 run function vp:util/zz_has_permission_cleanup
+# --- 3. Check Permissions ---
+# This single loop checks for both grants and denies.
+# It will set vp_perm_granted and vp_perm_denied scores.
+function vp:util/zz_has_permission_loop
 
-# If no explicit deny was found, check for a grant.
-function vp:util/zz_has_permission_check_grant_loop
+# --- 4. Final Result ---
+# Permission is granted if a grant was found AND no deny was found.
+scoreboard players set @s vp_has_permission 0
+execute if score @s vp_perm_granted matches 1 if score @s vp_perm_denied matches 0 run scoreboard players set @s vp_has_permission 1
 
-# --- 4. Cleanup ---
+# --- 5. Cleanup ---
 function vp:util/zz_has_permission_cleanup
-
-function vp:util/zz_has_permission_cleanup
-data remove storage vp:temp effective_permissions
-data remove storage vp:temp permission_to_check
-data remove storage vp:temp groups_to_process

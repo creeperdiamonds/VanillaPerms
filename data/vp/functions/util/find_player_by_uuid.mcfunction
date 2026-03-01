@@ -4,17 +4,20 @@
 # Stores result in `storage vp:temp found_player_data`.
 # Sets `vp.flag_result` score for @s to 1 on success, 0 on failure.
 
-# Store player's UUID for the loop to use
-execute store result storage vp:temp search_uuid[0] int 1 run data get entity @s UUID[0]
-execute store result storage vp:temp search_uuid[1] int 1 run data get entity @s UUID[1]
-execute store result storage vp:temp search_uuid[2] int 1 run data get entity @s UUID[2]
-execute store result storage vp:temp search_uuid[3] int 1 run data get entity @s UUID[3]
+# --- Setup for generic find ---
+# The generic find utility cannot compare integer arrays directly.
+# To work around this, we convert both the search UUID and the list's UUIDs to strings for comparison.
+data modify storage vp:temp _find.source_list set from storage vp:players players
+data modify storage vp:temp _find.search_path set value "uuid"
 
-# Create a temporary copy of the players array to loop over
-data modify storage vp:temp players_copy set from storage vp:players players
+# Get the player's UUID as a string.
+data modify storage vp:temp _find.search_value set value '""'
+data modify storage vp:temp _find.search_value set from entity @s UUID
 
-# Initialize success flag
-scoreboard players set @s vp.flag_result 0
+# --- Execute generic find ---
+# We need a custom loop that stringifies the UUID from the list before comparing.
+function vp:util/zz_find_player_by_uuid_loop
 
-# Start the loop
-function vp:util/find_player_loop
+# --- Process Results ---
+# The loop will set vp_found. We use that as our result flag.
+scoreboard players operation @s vp.flag_result = @s vp_found
