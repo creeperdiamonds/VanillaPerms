@@ -11,6 +11,7 @@ execute store result score @s vp_flag_NoFallDamage run data get storage vp:temp 
 
 # --- Original Configuration Flags ---
 execute store result score @s vp_flag_AllowExecuteForOthers run data get storage vp:temp effective_flags.AllowExecuteForOthers
+execute store result score @s vp_AllowSelectors run data get storage vp:temp effective_flags.AllowSelectors
 execute store result score @s vp_flag_ChatRank run data get storage vp:temp effective_flags.ChatRank
 execute store result score @s vp_flag_TabRank run data get storage vp:temp effective_flags.TabRank
 execute store result score @s vp_flag_HideChat run data get storage vp:temp effective_flags.HideChat

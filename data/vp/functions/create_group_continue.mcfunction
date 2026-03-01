@@ -1,24 +1,19 @@
 # create_group_continue.mcfunction
 # This function checks if a group with the given name already exists.
-# It initiates a loop that is safe for NBT list iteration.
+# It now uses the generic find_in_list utility.
 
-# Clean up any tags from previous runs
-tag @s remove vp_group_exists
+# --- Setup for generic find ---
+# The group name to check is already in `storage vp:temp arg`.
+data modify storage vp:temp _find.source_list set from storage vp:groups groups
+data modify storage vp:temp _find.search_path set value "name"
+data modify storage vp:temp _find.search_value set from storage vp:temp arg
 
-# Copy the list of groups to a temporary location to avoid destroying the original data.
-data modify storage vp:temp groups set from storage vp:groups groups
+# --- Execute generic find ---
+function vp:util/find_in_list
 
-# Start the loop to check for duplicates.
-function vp:create_group_check_loop
+# --- Process Results ---
+# If the group was not found (vp_found = 0), proceed with creation.
+execute if score @s vp_found matches 0 run function vp:create_group_do_create
 
-# After the loop has run, check if the 'vp_group_exists' tag was set.
-# If it was not set, proceed with creating the group.
-execute unless entity @s[tag=vp_group_exists] run function vp:create_group_do_create
-
-# If the tag was set, it means a duplicate was found.
-# The loop function will have already sent the error message.
-# Clean up the tag.
-execute if entity @s[tag=vp_group_exists] run tag @s remove vp_group_exists
-
-# Clean up the temporary group list
-data remove storage vp:temp groups
+# If the group was found (vp_found = 1), it's a duplicate. Send an error.
+execute if score @s vp_found matches 1 run tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"Group already exists: '"},{"storage":"vp:temp","nbt":"arg","color":"yellow"},{"text":"'"}]

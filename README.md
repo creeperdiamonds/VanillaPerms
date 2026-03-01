@@ -258,4 +258,4 @@ For issues, questions, or suggestions, please open an issue on this repository.
 
 ---
 
-**VanillaPerms** - Making vanilla permissions advanced since 2026
+**VanillaPerms** - Advanced vanilla permissions

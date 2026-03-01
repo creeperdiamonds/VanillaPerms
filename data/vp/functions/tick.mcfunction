@@ -8,3 +8,6 @@ function vp:tick_players
 # We'll use a placeholder objective `vp.cmd` for now.
 # This will be replaced by a system that reads from the config.
 execute as @a[scores={vp=1..}] run function vp:command/init
+
+# 3. Enforce server rules based on flags
+function vp:enforce_selectors

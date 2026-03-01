@@ -1,31 +1,39 @@
 # vp:command/dispatch_from_storage
 # Run as the player who typed the command.
-# NOTE: This system is not safe for multiple concurrent users.
-# A more robust system would use a unique player ID to avoid conflicts.
+# Checks permissions and dispatches to the correct command function.
 
-## Dispatch command stored in `vp:temp`.
-## We accept either a plain verb (create) or a quoted verb ("create") because
-## different server implementations may return slightly different NBT for sign text.
+# --- Command: create ---
+execute if data storage vp:temp {command:{line1:'"create"'}} run function vp:command/zz_dispatch_create
+execute if data storage vp:temp {command:{line1:'create'}} run function vp:command/zz_dispatch_create
 
-# create
-execute if data storage vp:temp {command:{line1:'"create"'}} run function vp:create_group
-execute if data storage vp:temp {command:{line1:'create'}} run function vp:create_group
+# --- Command: edit ---
+execute if data storage vp:temp {command:{line1:'"edit"'}} run function vp:command/zz_dispatch_edit
+execute if data storage vp:temp {command:{line1:'edit'}} run function vp:command/zz_dispatch_edit
 
-# edit
-execute if data storage vp:temp {command:{line1:'"edit"'}} run function vp:edit_group
-execute if data storage vp:temp {command:{line1:'edit'}} run function vp:edit_group
+# --- Command: edit_player ---
+execute if data storage vp:temp {command:{line1:'"edit_player"'}} run function vp:command/zz_dispatch_edit_player
+execute if data storage vp:temp {command:{line1:'edit_player'}} run function vp:command/zz_dispatch_edit_player
 
-# join
-execute if data storage vp:temp {command:{line1:'"join"'}} run function vp:join_group
-execute if data storage vp:temp {command:{line1:'join'}} run function vp:join_group
+# --- Command: join ---
+execute if data storage vp:temp {command:{line1:'"join"'}} run function vp:command/zz_dispatch_join
+execute if data storage vp:temp {command:{line1:'join'}} run function vp:command/zz_dispatch_join
 
-# leave
-execute if data storage vp:temp {command:{line1:'"leave"'}} run function vp:leave_group
-execute if data storage vp:temp {command:{line1:'leave'}} run function vp:leave_group
+# --- Command: leave ---
+execute if data storage vp:temp {command:{line1:'"leave"'}} run function vp:command/zz_dispatch_leave
+execute if data storage vp:temp {command:{line1:'leave'}} run function vp:command/zz_dispatch_leave
 
-# reload
-execute if data storage vp:temp {command:{line1:'"reload"'}} run function vp:reload_config
-execute if data storage vp:temp {command:{line1:'reload'}} run function vp:reload_config
+# --- Command: reload ---
+execute if data storage vp:temp {command:{line1:'"reload"'}} run function vp:command/zz_dispatch_reload
+execute if data storage vp:temp {command:{line1:'reload'}} run function vp:command/zz_dispatch_reload
 
-# Unknown command -> show help
-execute unless data storage vp:temp {command:{line1:'"create"'}} unless data storage vp:temp {command:{line1:'create'}} unless data storage vp:temp {command:{line1:'"edit"'}} unless data storage vp:temp {command:{line1:'edit'}} unless data storage vp:temp {command:{line1:'"join"'}} unless data storage vp:temp {command:{line1:'join'}} unless data storage vp:temp {command:{line1:'"leave"'}} unless data storage vp:temp {command:{line1:'leave'}} unless data storage vp:temp {command:{line1:'"reload"'}} unless data storage vp:temp {command:{line1:'reload'}} run tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"Unknown command on sign."}]
+# --- Command: checkperms ---
+execute if data storage vp:temp {command:{line1:'"checkperms"'}} run function vp:command/zz_dispatch_checkperms
+execute if data storage vp:temp {command:{line1:'checkperms'}} run function vp:command/zz_dispatch_checkperms
+
+# --- Command: checkperms ---
+execute if data storage vp:temp {command:{line1:'"checkperms"'}} run function vp:command/zz_dispatch_checkperms
+execute if data storage vp:temp {command:{line1:'checkperms'}} run function vp:command/zz_dispatch_checkperms
+
+# --- Fallback: Unknown Command ---
+# If we reach this point, no command matched and returned.
+tellraw @s ["",{"text":"[ERROR] ","color":"red"},{"text":"Unknown command on sign."}]

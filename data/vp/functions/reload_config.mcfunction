@@ -35,6 +35,7 @@ scoreboard objectives add vp_found dummy
 scoreboard objectives add vp_found_index dummy
 scoreboard objectives add vp_callback dummy
 scoreboard objectives add vp_rebuild_loop dummy
+scoreboard objectives add vp_has_permission dummy
 scoreboard objectives add vp_perm_remove_loop dummy
 scoreboard objectives add vp_perm_check_loop dummy
 scoreboard objectives add vp_AllowExecute dummy
@@ -73,4 +74,3 @@ execute as @a run function vp:player_recalculate_flags
 
 # feedback to executor
 tellraw @s ["",{"text":"[SUCCESS] ","color":"green"},{"text":"Configuration reloaded."}]
-

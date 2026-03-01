@@ -7,8 +7,13 @@ execute unless data storage vp:temp temp_players[0] run return 0
 # Check if the current player is the one we want to modify.
 # The target player's index is already in 'vp_found_index'.
 execute if score @s vp_rebuild_loop = @s vp_found_index run data modify storage vp:temp target_player set from storage vp:temp temp_players[0]
+# --- Apply Modifications ---
 execute if score @s vp_rebuild_loop = @s vp_found_index run execute if data storage vp:temp {action:"join_group"} run data modify storage vp:temp target_player.group set from storage vp:temp group_arg
-execute if score @s vp_rebuild_loop = @s vp_found_index run execute if data storage vp:temp {action:"leave_group"} run data modify storage vp:temp target_player.group set value ""
+execute if score @s vp_rebuild_loop = @s vp_found_index run execute if data storage vp:temp {action:"permission_add"} run data modify storage vp:temp target_player.permissions append from storage vp:temp action_values
+execute if score @s vp_rebuild_loop = @s vp_found_index if data storage vp:temp {action:"permission_remove"} run function vp:zz_rebuild_players_remove_perm_helper
+execute if score @s vp_rebuild_loop = @s vp_found_index run execute if data storage vp:temp {action:"permission_clear"} run data modify storage vp:temp target_player.permissions set value []
+
+# --- Append Modified Player and Mark as Processed ---
 execute if score @s vp_rebuild_loop = @s vp_found_index run data modify storage vp:temp new_players append from storage vp:temp target_player
 execute if score @s vp_rebuild_loop = @s vp_found_index run tag @s add vp_processed_target
 

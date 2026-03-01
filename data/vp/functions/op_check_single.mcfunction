@@ -1,16 +1,14 @@
 # op_check_single.mcfunction
-# executed as a single OP player; assign the appropriate operator group
-# in the vp:players storage entry for that player.
+# Executed as a single OP player (@s). Assigns the appropriate operator group
+# based on the player's vanilla permission level.
 
-# Determine target group name by checking player's OP status
-# Note: In vanilla MC, OP levels are 0-4. Since these are ops, we check using permission level
-execute if data storage vp:temp find_player_temp[{uuid:[@s]}] run data modify storage vp:temp group_arg set value "operator"
-# (Advanced: could check player.dat for actual OP level, but for now use "operator" group)
+# Determine target group name by checking the player's OP level.
+# We check from highest to lowest to ensure the correct group is assigned.
+execute if entity @s[level=4] run data modify storage vp:temp arg set value "operator"
+execute if entity @s[level=3..3] run data modify storage vp:temp arg set value "operator.lvl3"
+execute if entity @s[level=2..2] run data modify storage vp:temp arg set value "operator.lvl2"
+execute if entity @s[level=1..1] run data modify storage vp:temp arg set value "operator.lvl1"
 
-# The join_group_update function is designed to update the calling player's
-# group to the one specified in `storage vp:temp group_arg`.
-function vp:join_group_update
-
-# The 'join_group_update' function now handles recalculating flags and permissions.
-# The lines below are no longer needed.
-
+# Call the modern, refactored join_group function. It expects the
+# group name to be in `storage vp:temp arg`.
+function vp:join_group

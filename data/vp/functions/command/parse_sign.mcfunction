@@ -26,5 +26,5 @@ data modify storage vp:temp arg set from storage vp:temp command.line2
 # Run the dispatcher as the player who placed the sign (tagged earlier).
 execute as @a[tag=vp.commander] run function vp:command/dispatch_from_storage
 
-# Clean up after parsing
-function vp:command/cleanup
+# Clean up after parsing, executing as the original player.
+execute as @a[tag=vp.commander] run function vp:command/cleanup

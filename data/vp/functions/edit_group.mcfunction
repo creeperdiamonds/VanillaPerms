@@ -12,8 +12,8 @@ execute unless data storage vp:temp arg run tellraw @s [{"text":"[ERROR] Error: 
 execute unless data storage vp:temp arg run return 0
 execute unless data storage vp:temp action run tellraw @s [{"text":"[ERROR] Error: No action provided in 'action'.","color":"red"}]
 execute unless data storage vp:temp action run return 0
-execute unless data storage vp:temp action_values run tellraw @s [{"text":"[ERROR] Error: No values provided in 'action_values'.","color":"red"}]
-execute unless data storage vp:temp action_values run return 0
+execute unless data storage vp:temp {action:"permission_clear"} run execute unless data storage vp:temp {action:"flag_clear"} run execute unless data storage vp:temp action_values run tellraw @s [{"text":"[ERROR] Error: No values provided in 'action_values'.","color":"red"}]
+execute unless data storage vp:temp {action:"permission_clear"} run execute unless data storage vp:temp {action:"flag_clear"} run execute unless data storage vp:temp action_values run return 0
 
 # Find the group. The function vp:find_group will:
 # - Set vp_found=1 if found, 0 otherwise.
@@ -29,4 +29,3 @@ execute if score @s vp_found matches 0 run tellraw @s ["",{"text":"[ERROR] ","co
 # Clean up temp storage that is safe to remove now
 data remove storage vp:temp arg
 data remove storage vp:temp cmp
-

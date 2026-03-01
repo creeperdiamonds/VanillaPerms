@@ -1,0 +1,38 @@
+# vp:zz_rebuild_groups_remove_multiple_perms
+# Parses a comma-separated list of permissions from `action_values` and removes each one.
+
+# --- Setup ---
+# Copy the group's current permissions to a working list.
+data modify storage vp:temp original_perms set from storage vp:temp target_group.permissions
+
+# --- Loop through comma-separated values ---
+# Stop condition: If action_values is empty, we are done.
+execute unless data storage vp:temp {action_values:''} run return 0
+
+# Find the index of the first comma.
+scoreboard players set @s vp_match -1
+execute store result score @s vp_match run data get storage vp:temp action_values[0].find(',')
+
+# After the loop, set the group's permissions to the newly built list.
+data modify storage vp:temp action_values set from storage vp:temp action_valuesind(',')
+data modify storage vp:temp target_group.permissions set from storage vp:temp new_perms
+
+
+# If no comma is found, process the whole string as the last permission.
+execute if score @s vp_match matches -1 run data modify storage vp:temp perm_to_remove set from storage vp:temp action_values
+execute if score @s vp_match matches -1 run data modify storage vp:temp action_values set value ''
+
+# If a comma is found, extract the permission before it.
+execute if score @s vp_match matches 0.. run data modify storage vp:temp perm_to_remove set from storage vp:temp action_values
+execute if score @s vp_match matches 0.. run data modify storage vp:temp action_values set from storage vp:temp action_values
+
+# $(string storage vp:temp action_values get 0 $(vp_match))
+execute if score @s vp_match matches 0.. run data modify storage vp:temp action_values set from storage vp:temp action_values 
+
+# Rebuild the permissions list, removing the current `perm_to_remove`.
+data modify storage vp:temp new_perms set value []
+function vp:zz_rebuild_permissions_list_loop
+data modify storage vp:temp original_perms set from storage vp:temp new_perms
+
+# Loop again for the next permission.
+function vp:zz_rebuild_groups_remove_multiple_perms
