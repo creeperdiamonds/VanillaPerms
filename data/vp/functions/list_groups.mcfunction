@@ -1,0 +1,2 @@
+# vp:command/book/list_groups
+tellraw @s {"text":"Click here to run: ","color":"gold","extra":[{"text":"/function vp:list_groups","color":"aqua","click_event":{"action":"run_command","command":"/function vp:list_groups"}}]}

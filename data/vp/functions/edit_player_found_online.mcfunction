@@ -1,20 +1,21 @@
 # vp:edit_player_found_online
-# Executed as the target player (@s) once they are found online.
+# Executed AS the target player once they are found online.
+# For the 'info' command, this gathers and displays their data.
 
-# --- 1. Get Player UUID and Find in players.json ---
-execute store result storage vp:temp current_uuid[0] int 1.0 run data get entity @s UUID[0]
-execute store result storage vp:temp current_uuid[1] int 1.0 run data get entity @s UUID[1]
-execute store result storage vp:temp current_uuid[2] int 1.0 run data get entity @s UUID[2]
-execute store result storage vp:temp current_uuid[3] int 1.0 run data get entity @s UUID[3]
-function vp:find_player
+# --- Gather Data ---
+# Get all effective permissions for this player (@s).
+function vp:util/get_effective_permissions
 
-# --- 2. Create Player Entry if it Doesn't Exist ---
-# If the player is not in players.json, create a default entry for them.
-execute if score @s vp_found matches 0 run data modify storage vp:players players append value {uuid:[I;0,0,0,0],group:"default",permissions:[],flags:{},rank:{Chat:null,Tab:null,Player:null}}
-execute if score @s vp_found matches 0 run data modify storage vp:players players[-1].uuid set from storage vp:temp current_uuid
-# After adding, we need to find them again to get their index.
-execute if score @s vp_found matches 0 run function vp:find_player
+# --- Display Data ---
+# Switch back to the original command executor to show them the message.
+execute as @a[tag=vp.commander,limit=1] run tellraw @s ""
+execute as @a[tag=vp.commander,limit=1] run tellraw @s {"text":"--- Player Info: ","color":"gold","extra":[{"selector":"@s","color":"white"}]}
+execute as @a[tag=vp.commander,limit=1] run tellraw @s ["",{"text":"UUID: ","color":"gray"},{"text":"","extra":[{"storage":"vp:temp","nbt":"_perms.player_data.uuid"}]}]
+execute as @a[tag=vp.commander,limit=1] run tellraw @s ["",{"text":"Group: ","color":"gray"},{"text":"","extra":[{"storage":"vp:temp","nbt":"_perms.player_data.group"}]}]
 
-# --- 3. Apply the Edit ---
-# Now that we have the player's index in vp_found_index, apply the changes.
-function vp:edit_player_apply
+execute as @a[tag=vp.commander,limit=1] run tellraw @s {"text":"Personal Permissions:","color":"gray"}
+execute as @a[tag=vp.commander,limit=1] run tellraw @s {"text":"","extra":[{"storage":"vp:temp","nbt":"_perms.player_data.permissions"}]}
+
+execute as @a[tag=vp.commander,limit=1] run tellraw @s {"text":"Effective Permissions (from all sources):","color":"gray"}
+execute as @a[tag=vp.commander,limit=1] run tellraw @s {"text":"","extra":[{"storage":"vp:temp","nbt":"effective_permissions"}]}
+execute as @a[tag=vp.commander,limit=1] run tellraw @s ""

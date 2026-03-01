@@ -1,0 +1,2 @@
+# vp:command/book/list_perms
+tellraw @s {"text":"Click here to run: ","color":"gold","extra":[{"text":"/function vp:list_perms {group:\"<GroupName>\"}","color":"aqua","click_event":{"action":"suggest_command","command":"/function vp:list_perms {group:\"\"}"}}]}

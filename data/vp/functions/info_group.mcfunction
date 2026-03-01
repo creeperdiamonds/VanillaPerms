@@ -1,0 +1,2 @@
+# vp:command/book/info_group
+tellraw @s {"text":"Click here to run: ","color":"gold","extra":[{"text":"/function vp:info_group {group:\"<GroupName>\"}","color":"aqua","click_event":{"action":"suggest_command","value":"/function vp:info_group {group:\"\"}"}}]}

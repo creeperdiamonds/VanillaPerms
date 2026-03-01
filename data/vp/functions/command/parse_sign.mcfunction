@@ -23,8 +23,10 @@ data modify storage vp:temp command.line4 set from block ^ ^ ^2 front_text.messa
 # Copy line2 into a canonical temp arg for the downstream command handlers.
 data modify storage vp:temp arg set from storage vp:temp command.line2
 
-# Run the dispatcher as the player who placed the sign (tagged earlier).
+# Run the dispatcher as the player who placed the sign (tagged earlier)
+# NOTE: vp:command/dispatch_from_storage is expected to exist and handle command routing.
 execute as @a[tag=vp.commander] run function vp:command/dispatch_from_storage
 
-# Clean up after parsing, executing as the original player.
+# Clean up after parsing, executing as the original player
+# NOTE: vp:command/cleanup is expected to exist to remove tags and temporary data.
 execute as @a[tag=vp.commander] run function vp:command/cleanup

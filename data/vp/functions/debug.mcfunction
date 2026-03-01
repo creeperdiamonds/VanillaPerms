@@ -1,0 +1,2 @@
+# vp:command/book/debug
+tellraw @s {"text":"Click here to run: ","color":"gold","extra":[{"text":"/function vp:debug","color":"aqua","click_event":{"action":"run_command","command":"/function vp:debug"}}]}

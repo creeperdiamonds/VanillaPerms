@@ -1,0 +1,2 @@
+# vp:command/book/delete_group
+tellraw @s {"text":"Click here to run: ","color":"gold","extra":[{"text":"/function vp:delete_group {group:\"<GroupName>\"}","color":"aqua","click_event":{"action":"suggest_command","value":"/function vp:delete_group {group:\"\"}"}}]}
