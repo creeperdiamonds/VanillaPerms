@@ -17,10 +17,10 @@ A vanilla-native permissions system datapack for Minecraft, inspired by LuckPerm
 ## Installation
 
 ### Requirements
-- Minecraft Java Edition 1.20+ (Pack format 18)
-- Vanilla server or compatible server software (Spigot, Paper, Fabric, etc.)
+- Minecraft Java Edition 1.20.2+ (Pack format 18)
+- Vanilla server or compatible server software (Spigot, Paper, Fabric, Vanilla, etc.)
 - World save enabled (required for datapack functionality)
-
+- Command blocks enabled
 ### Installation Steps
 
 #### Step 1: Download the datapack
@@ -259,3 +259,4 @@ For issues, questions, or suggestions, please open an issue on this repository.
 ---
 
 **VanillaPerms** - Advanced vanilla permissions
+
